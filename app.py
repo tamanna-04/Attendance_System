@@ -164,7 +164,7 @@ def add():
     print('Training Model')
     train_model()
     names, rolls, times, l = extract_attendance()
-    return render_template('home.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
