@@ -7,13 +7,29 @@
     }
 
    html, body {
-     background-color: #EEEEEE;
+     background-color: #56baed;
      height: 100%;
    }
 
     body {
         font-family: sans-serif;
         margin: 0;
+    }
+
+    li {
+      background-color: #EEEEEE;
+      border-radius: 20px;
+      margin-top: 20px;
+      padding: 5px;
+    }
+
+    li:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    li:hover a {
+      color: inherit;
     }
 
     table {
@@ -27,7 +43,7 @@
         overflow-y: scroll;
     }
     td {
-      width: 30%;
+      width: 31%;
     }
     td,
     th {
@@ -53,26 +69,40 @@
     <title>Attendance</title>
 </head>
 
-<body>
+<body style="background-color:#56baed">
 
     <div class='text-center' style="background-color: rgba(92, 38, 239, 0.9);">
         <h1 style="color: white;padding: 20px;font-size: 44px; margin-top: 50px;">Attendance System</h1>
     </div>
 
-    {% if mess %}
-    <p class="text-center" style="color: red;font-size: 20px;">{{ mess }}</p>
-    {% endif %}
+    <div class="d-flex flex-column flex-shrink-0 p-3" style="background-color: white;width: 280px; float: left; margin-top: 34px; border-style: solid; border-radius: 20px;">
+        <span class="fs-4"><img src="https://user-images.githubusercontent.com/58062535/175368840-ae4c10a7-d6c1-4666-a218-656181eb80dc.png" style="width: 100%;"></span>
+        <hr>
+        <div style="margin-bottom: 40px">
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+              <a href="/newStud" class="nav-link text-center" aria-current="page">
+                New Student
+              </a>
+            </li>
+            <li>
+              <a href="/logout" class="nav-link text-center">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
 
     <div class="row text-center" style="padding: 20px;margin: 20px;">
 
         <div class="col"
-            style="border-style: solid;border-radius: 20px;padding: 0px;margin:0px 10px 10px 10px;height: 550px;">
-            <h2 style="border-radius: 20px 20px 0px 0px;background-color: rgb(216, 13, 77) ; color: white;padding: 20px;">Today's Attendance</h2>
-            <a style="text-decoration: none;max-width: 300px;" href="/start">
-                <button
-                    style="font-size: 24px;font-weight: bold;border-radius: 10px;width:490px;padding: 10px;margin-top: 30px;margin-bottom: 30px;"
-                    type='submit' class='btn btn-primary'>Take Attendance</button>
-            </a>
+            style="border-style: solid;border-radius: 20px; background-color: white;padding: 0px;margin:0px 10px 10px 10px;height: 550px;">
+            <center>
+              <h2 style="border-radius: 10px;background-color: #0d6efd; color: white;padding: 20px; width: 86%;">Today's Attendance</h2>
+            </center>
+            <br>
             <table style="background-color: white; border: 2px solid;">
                 <tr>
                     <td style="position: sticky; top: 0;background-color: white;"><b>S.No.</b></td>
@@ -92,30 +122,11 @@
                 {% endfor %}
                 {% endif %}
             </table>
-            <br>
-        </div>
-
-        <div class="col"
-            style="border-style: solid;border-radius: 20px;padding: 0px;margin:0px 10px 10px 10px;">
-            <form action='/add' method="POST" enctype="multipart/form-data">
-                <h2 style="border-radius: 20px 20px 0px 0px;background-color: rgb(216, 13, 77) ;color: white;padding: 20px;">New Student</h2>
-                <br>
-                <label style="font-size: 20px;"><b>Student Name</b></label>
-                <br>
-                <input type="text" id="newusername" name='newusername'
-                    style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px;width: 300px; height: 50px;" required>
-                <br>
-                <label style="font-size: 20px;"><b>Student Id</b></label>
-                <br>
-                <input type="number" id="newusereid" name='newuserid'
-                    style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px; width: 300px; height: 50px;" required>
-                <br>
-                <button style="width: 232px;margin-top: 20px;font-size: 20px; border-radius: 10px; width: 300px; height: 50px;" type='submit' class='btn btn-dark'>
-                    Submit
-                </button>
-                <br>
-                <h5 style="padding: 25px;"><i>Total number of Students: {{totalreg}}</i></h5>
-            </form>
+            <a style="text-decoration: none;max-width: 300px;" href="/takeAttendance">
+                <button
+                    style="font-size: 24px;font-weight: bold;border-radius: 10px;width:490px;padding: 10px;margin-top: 30px;margin-bottom: 30px;"
+                    type='submit' class='btn btn-primary'>Take Attendance</button>
+            </a>
         </div>
 
     </div>

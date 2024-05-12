@@ -20,7 +20,6 @@ datetoday2 = date.today().strftime("%d-%B-%Y")
 
 face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-
 if not os.path.isdir('Attendance'):
     os.makedirs('Attendance')
 if not os.path.isdir('static'):
@@ -93,18 +92,34 @@ def getallusers():
 
     return userlist, names, rolls, l
 
-
 @app.route('/')
+def login():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def checkLogin():
+    recName = request.form.get('userName', '')
+    recPass = request.form.get('userPass', '')
+    if recName == "admin" and recPass == "admin":
+        return redirect('/home')
+    else:
+        return redirect('/')
+
+@app.route('/logout')
+def logout():
+    return redirect('/')
+
+@app.route('/home')
 def home():
     names, rolls, times, l = extract_attendance()
     return render_template('home.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2)
 
-@app.route('/start', methods=['GET'])
-def start():
+@app.route('/takeAttendance', methods=['GET'])
+def takeAttendance():
     names, rolls, times, l = extract_attendance()
 
     if 'face_recognition_model.pkl' not in os.listdir('static'):
-        return render_template('home.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2, mess='There is no trained model in the static folder. Please add a new face to continue.')
+        return redirect('/home')
 
     ret = True
     cap = cv2.VideoCapture(0)
@@ -129,12 +144,14 @@ def start():
     cap.release()
     cv2.destroyAllWindows()
     names, rolls, times, l = extract_attendance()
-    return redirect('/')
+    return redirect('/home')
 
+@app.route('/newStud')
+def newStud():
+    return render_template('newStud.html')
 
-
-@app.route('/add', methods=['GET', 'POST'])
-def add():
+@app.route('/newStudent', methods=['GET', 'POST'])
+def newStudent():
     newusername = request.form['newusername']
     newuserid = request.form['newuserid']
     userimagefolder = 'static/faces/'+newusername+'_'+str(newuserid)
@@ -164,7 +181,7 @@ def add():
     print('Training Model')
     train_model()
     names, rolls, times, l = extract_attendance()
-    return redirect('/')
+    return redirect('/home')
 
 if __name__ == '__main__':
     app.run(debug=True)
