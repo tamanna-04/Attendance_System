@@ -2,17 +2,12 @@
 <html lang="en">
 
 <style type='text/css'>
-    * {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
    html, body {
      background-color: #56baed;
      height: 100%;
    }
 
     body {
-        font-family: sans-serif;
         margin: 0;
     }
 
@@ -48,17 +43,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
+    <link rel="icon" type="image/x-icon" href="/static/images/mainFavicon.webp">
+
     <title>Attendance</title>
 </head>
 
 <body style="background-color:#56baed">
 
-    <div class='text-center' style="background-color: rgba(92, 38, 239, 0.9);">
-        <h1 style="color: white;padding: 20px;font-size: 44px; margin-top: 50px;">Attendance System</h1>
+    <div style="background-color: rgba(92, 38, 239, 0.9); width: 70%; margin: auto; border-radius: 20px;">
+        <center>
+          <h1 style="color: white;padding: 20px;font-size: 44px; margin-top: 50px;">Attendance System</h1>
+        </center>
     </div>
 
     <div class="d-flex flex-column flex-shrink-0 p-3" style="background-color: white;width: 280px; float: left; margin-top: 34px; border-style: solid; border-radius: 20px;">
-        <span class="fs-4"><img src="https://user-images.githubusercontent.com/58062535/175368840-ae4c10a7-d6c1-4666-a218-656181eb80dc.png" style="width: 100%;"></span>
+        <span class="fs-4"><img src="/static/images/mainAvatar.png" style="width: 100%;"></span>
         <hr>
         <div style="margin-bottom: 40px">
           <ul class="nav nav-pills flex-column mb-auto">
@@ -86,11 +85,11 @@
                   <br>
                   <br>
                   <input type="text" id="newusername" name='newusername' placeholder="Student Name"
-                      style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px;width: 300px; height: 50px;" required>
+                      style="font-size: 17px;margin-top:10px;margin-bottom:10px;border-radius: 10px;width: 300px; height: 50px;" required>
                   <br>
                   <br>
                   <input type="number" id="newusereid" name='newuserid' placeholder="Student ID"
-                      style="font-size: 20px;margin-top:10px;margin-bottom:10px;border-radius: 10px; width: 300px; height: 50px;" required>
+                      style="font-size: 17px;margin-top:10px;margin-bottom:10px;border-radius: 10px; width: 300px; height: 50px;" required>
                   <br>
                   <button style="background-color: #0d6efd; color: white;margin-top: 20px;font-size: 20px; border-radius: 10px; width: 300px; height: 50px;" type='submit' class='btn'>
                       Submit
