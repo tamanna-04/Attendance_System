@@ -7,8 +7,18 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
 import joblib
+from flask_mysqldb import MySQL
+
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
+
+app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', '')
+app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', '')
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', '')
+app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', '')
+mysql = MySQL(app)
 
 nimgs = 10
 
@@ -94,16 +104,22 @@ def getallusers():
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', message='')
 
 @app.route('/login', methods=['POST'])
 def checkLogin():
     recName = request.form.get('userName', '')
     recPass = request.form.get('userPass', '')
-    if recName == "admin" and recPass == "admin":
+
+    cur = mysql.connection.cursor()
+    cur.execute(f'''SELECT password FROM admindata where username="{recName}"''')
+    fetchedData = cur.fetchall()
+    cur.close()
+
+    if len(fetchedData) > 0 and fetchedData[0][0] == recPass:
         return redirect('/home')
     else:
-        return redirect('/')
+        return render_template('login.html', message='Invalid Credentials')
 
 @app.route('/logout')
 def logout():
