@@ -1,0 +1,47 @@
+body {
+  background-image: url('/static/images/mainBG.webp');
+  height: 100%;
+  margin: 0;
+}
+ li {
+   background-color: #EEEEEE;
+   border-radius: 20px;
+   margin-top: 20px;
+   padding: 5px;
+ }
+
+ li:hover {
+   background-color: #0d6efd;
+   color: white;
+ }
+ li:hover a {
+   color: inherit;
+ }
+ .grid-container {
+   border: solid;
+   border-radius: 20px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   width: 86%;
+   margin: auto;
+   overflow-y: auto;
+   max-height: 50%;
+ }
+ .header {
+   background-color: #f3f3f3;
+   font-weight: bold;
+ }
+ .grid-container div {
+   border-left: solid;
+   padding: 6px;
+   margin: 0;
+ }
+ .grid-container div:not(.header) {
+   background-color: white;
+ }
+ .newStudForm input {
+   padding-left: 20px;
+ }
+ .leftPane li {
+   border: solid;
+ }
