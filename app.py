@@ -1,6 +1,6 @@
 import cv2
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session
 from datetime import date
 from datetime import datetime
 import numpy as np
@@ -13,6 +13,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+
+app.secret_key = os.getenv('SESSION_SECRET_KEY', '')
 
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', '')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', '')
@@ -104,6 +106,8 @@ def getallusers():
 
 @app.route('/')
 def login():
+    if session.get('username') is not None:
+        return redirect('/home')
     return render_template('login.html', message='')
 
 @app.route('/login', methods=['POST'])
@@ -117,21 +121,27 @@ def checkLogin():
     cur.close()
 
     if len(fetchedData) > 0 and fetchedData[0][0] == recPass:
+        session['username'] = recName
         return redirect('/home')
     else:
         return render_template('login.html', message='Invalid Credentials')
 
 @app.route('/logout')
 def logout():
+    session.pop('username', None)
     return redirect('/')
 
 @app.route('/home')
 def home():
+    if session.get('username') is None:
+        return redirect('/')
     names, rolls, times, l = extract_attendance()
     return render_template('home.html', names=names, rolls=rolls, times=times, l=l, totalreg=totalreg(), datetoday2=datetoday2)
 
 @app.route('/takeAttendance', methods=['GET'])
 def takeAttendance():
+    if session.get('username') is None:
+        return redirect('/')
     names, rolls, times, l = extract_attendance()
 
     if 'face_recognition_model.pkl' not in os.listdir('static'):
@@ -164,10 +174,14 @@ def takeAttendance():
 
 @app.route('/newStud')
 def newStud():
+    if session.get('username') is None:
+        return redirect('/')
     return render_template('newStud.html')
 
 @app.route('/newStudent', methods=['GET', 'POST'])
 def newStudent():
+    if session.get('username') is None:
+        return redirect('/')
     newusername = request.form['newusername']
     newuserid = request.form['newuserid']
     userimagefolder = 'static/faces/'+newusername+'_'+str(newuserid)
