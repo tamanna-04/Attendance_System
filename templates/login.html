@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="/static/images/mainFavicon.webp">
+    <link rel="icon" type="image/x-icon" href="/static/images/rect1.ico">
     <link rel="stylesheet" href="/static/css/login.css">
     <title>Login</title>
   </head>
@@ -10,7 +10,7 @@
     <div class="wrapper">
       <div id="formContent">
         <div class="first">
-          <img src="/static/images/mainAvatar.png" id="icon" alt="User Icon" />
+          <img src="/static/images/login.jpg" id="icon" alt="User Icon" />
         </div>
         <br>
         {% if not message == "" %}
@@ -18,8 +18,10 @@
         <br>
         {% endif %}
         <form action='/login' method="POST" enctype="multipart/form-data">
-          <input type="text" id="login" class="second" name="userName" placeholder="Username" autocomplete="off" required>
-          <input type="text" id="password" class="third" name="userPass" placeholder="Password" autocomplete="off" required>
+          <label for"login">Username</label>
+          <input type="text" id="login" class="second" name="userName" autocomplete="off" required>
+          <label for"login">Password</label>
+          <input type="text" id="password" class="third" name="userPass" autocomplete="off" required>
           <input type="submit" class="fourth" value="Login">
         </form>
       </div>
